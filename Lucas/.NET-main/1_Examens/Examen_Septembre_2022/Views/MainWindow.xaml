@@ -1,0 +1,53 @@
+﻿<Window x:Class="Examen_Septembre_2022.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Examen_Septembre_2022"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <DataTemplate x:Key="listboxTemplate">
+            <StackPanel Orientation="Horizontal">
+                <!-- id du produit -->
+                <TextBlock Text="{Binding ProductId}"/>
+                <!-- nom du produit -->
+                <TextBlock Text="{Binding ProductName}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+
+        <ListBox x:Name="listBoxProducts" 
+                 ItemsSource="{Binding ProductsList}" Margin="0,10,488,334" 
+                 ItemTemplate="{StaticResource listboxTemplate}"
+                 SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Grid DataContext="{Binding SelectedItem, ElementName=listBoxProducts}">
+            <Label Content="ProductID : " HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top"/>
+            <Label Content="ProductName :" HorizontalAlignment="Left" Margin="10,171,0,0" VerticalAlignment="Top"/>
+            <Label Content="QuantityPerUnit :" HorizontalAlignment="Left" Margin="10,209,0,0" VerticalAlignment="Top"/>
+            <Label Content="Fournisseur :" HorizontalAlignment="Left" Margin="10,240,0,0" VerticalAlignment="Top"/>
+
+            <Label Content="{Binding ProductId, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="247" Margin="92,140,0,0" VerticalAlignment="Top" Height="32" />
+            <TextBox Text="{Binding ProductName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="159" Margin="113,171,0,0"  VerticalAlignment="Top" Height="32" />
+            <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="159" Margin="92,206,0,0" VerticalAlignment="Top" Height="32" />
+            <Label Content="{Binding Fournisseur, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="159" Margin="92,238,0,0" VerticalAlignment="Top" Height="32" />
+
+            <DataGrid x:Name="dataGridProductSales" Margin="477,24,34,24"
+                    ItemsSource="{Binding DataContext.ProductsPrice, RelativeSource={RelativeSource FindAncestor,
+                    AncestorType={x:Type Window}}}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ProductId" Binding="{Binding ProductId}" />
+                    <DataGridTextColumn Header="TotalPrice" Binding="{Binding TotalPrice}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Button Content="MAJ" Command="{Binding UpdateCommand}" Margin="67,297,673,95" />
+
+        
+
+    </Grid>
+</Window>

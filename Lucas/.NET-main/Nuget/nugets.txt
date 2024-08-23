@@ -1,0 +1,26 @@
+Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.Design
+Microsoft.EntityFrameworkCore.Tools
+Microsoft.EntityFrameworkCore.SqlServer
+
+Scaffold-DbContext -OutputDir Models 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Northwind’ Microsoft.EntityFrameworkCore.SqlServer
+
+
+
+### Pour lazy loading
+
+
+Microsoft.EntityFrameworkCore.Proxies
+
+
+
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Northwind;MultipleActiveResultSets=True")
+                      .UseLazyLoadingProxies();
+            /*.LogTo(Console.WriteLine, LogLevel.Information)
+            .EnableSensitiveDataLogging();*/
+        }
+}

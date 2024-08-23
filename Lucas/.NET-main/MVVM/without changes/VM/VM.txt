@@ -1,0 +1,11 @@
+mettre enployeeVM et EmployeeModel dans le dossier enployeeVM
+
+
+EmployeeModel : 
+
+dois faire les get et les set pour les attributs => voir les quels dans le mainWindow
+
+
+EmployeeVM :
+
+List d'Employee (dans ce cas ci) => List en générale
